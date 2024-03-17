@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://bowm5ganj2al2"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_5jgrq"]
+[ext_resource type="PackedScene" uid="uid://cb7g51uf0hxn8" path="res://Scenes/ball.tscn" id="1_eemnr"]
+[ext_resource type="Texture2D" uid="uid://nq7il45h8egp" path="res://break assets/UI/sp_death_screen.png" id="1_ghncc"]
+[ext_resource type="Texture2D" uid="uid://w4nwykgflrtl" path="res://break assets/Misc/bg.png" id="1_kivlj"]
+[ext_resource type="PackedScene" uid="uid://dgau81q3tnhsy" path="res://Scenes/paddle.tscn" id="2_cc5i6"]
+[ext_resource type="Script" path="res://Scenes/Score.gd" id="3_cb2p1"]
+[ext_resource type="Script" path="res://Scenes/Life.gd" id="4_bag17"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6b5r"]
+size = Vector2(619, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mva0h"]
+size = Vector2(24, 487)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7goq"]
+size = Vector2(683, 75.25)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_5jgrq")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="UI"]
+visible = false
+offset_left = 233.0
+offset_top = 234.0
+offset_right = 357.0
+offset_bottom = 298.0
+
+[node name="Button2" type="Button" parent="UI"]
+visible = false
+offset_left = 230.0
+offset_top = 303.0
+offset_right = 369.0
+offset_bottom = 353.0
+
+[node name="Button3" type="Button" parent="UI"]
+visible = false
+offset_left = 259.0
+offset_top = 363.0
+offset_right = 345.0
+offset_bottom = 414.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI"]
+visible = false
+position = Vector2(301, 229.5)
+scale = Vector2(5.0101, 5.28788)
+texture = ExtResource("1_ghncc")
+
+[node name="Score" type="Label" parent="UI"]
+offset_top = 13.0
+offset_right = 107.0
+offset_bottom = 95.0
+text = "Score"
+script = ExtResource("3_cb2p1")
+
+[node name="Life" type="Label" parent="UI"]
+offset_top = 46.0
+offset_right = 49.0
+offset_bottom = 69.0
+text = "Lives"
+script = ExtResource("4_bag17")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(300, 240.5)
+scale = Vector2(1.5625, 2.21759)
+texture = ExtResource("1_kivlj")
+
+[node name="Ball" parent="." instance=ExtResource("1_eemnr")]
+position = Vector2(304, 291)
+scale = Vector2(4, 4)
+
+[node name="Paddle" parent="." instance=ExtResource("2_cc5i6")]
+position = Vector2(300, 450)
+scale = Vector2(2, 2)
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(299.5, 0)
+shape = SubResource("RectangleShape2D_h6b5r")
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-9, 233.5)
+shape = SubResource("RectangleShape2D_mva0h")
+metadata/_edit_lock_ = true
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(609, 232.25)
+shape = SubResource("RectangleShape2D_mva0h")
+metadata/_edit_lock_ = true
+
+[node name="BallEscape" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallEscape"]
+position = Vector2(303.5, 528.625)
+shape = SubResource("RectangleShape2D_p7goq")
+
+[connection signal="pressed" from="UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Button2" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="body_entered" from="BallEscape" to="Ball" method="_on_ball_escape_body_entered"]

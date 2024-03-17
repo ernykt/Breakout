@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://bowm5ganj2al2"]
+
+[ext_resource type="PackedScene" uid="uid://cb7g51uf0hxn8" path="res://Scenes/ball.tscn" id="1_eemnr"]
+[ext_resource type="Texture2D" uid="uid://w4nwykgflrtl" path="res://break assets/Misc/bg.png" id="1_kivlj"]
+[ext_resource type="PackedScene" uid="uid://dgau81q3tnhsy" path="res://Scenes/paddle.tscn" id="2_cc5i6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6b5r"]
+size = Vector2(619, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mva0h"]
+size = Vector2(24, 487)
+
+[node name="Main" type="Node2D"]
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(300, 240.5)
+scale = Vector2(1.5625, 2.21759)
+texture = ExtResource("1_kivlj")
+
+[node name="Ball" parent="." instance=ExtResource("1_eemnr")]
+position = Vector2(300, 220)
+scale = Vector2(4, 4)
+
+[node name="Paddle" parent="." instance=ExtResource("2_cc5i6")]
+position = Vector2(300, 450)
+scale = Vector2(2, 2)
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(299.5, 0)
+shape = SubResource("RectangleShape2D_h6b5r")
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-9, 233.5)
+shape = SubResource("RectangleShape2D_mva0h")
+metadata/_edit_lock_ = true
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(609, 232.25)
+shape = SubResource("RectangleShape2D_mva0h")
+metadata/_edit_lock_ = true
